@@ -1,0 +1,2 @@
+# EduAIthon
+Team name: Manthana
