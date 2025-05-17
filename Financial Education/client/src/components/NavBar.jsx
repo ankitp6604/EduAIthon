@@ -18,7 +18,7 @@ import { RiProfileLine } from "react-icons/ri";
 const navigation = [
   { name: "Home", href: "/home", current: false },
   { name: "Financial Habits", href: "/tasks", current: false },
-  { name: "Smart Investing", href: "/stock", current: false },
+  // { name: "Smart Investing", href: "/stock", current: false },
   // { name: "Smart Savings", href: "/savings", current: false },
   { name: "Learning", href: "/learning", current: false },
   // { name: "Party", href: "/party", current: false },
@@ -242,7 +242,7 @@ function NavBar() {
                                 "block px-4 py-2 text-sm text-gray-700 cursor-pointer hover:font-bold"
                               )}
                             >
-                              <Stream /> Stream
+                              <Stream />
                             </a>
                           )}
                         </Menu.Item>
