@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Chip from '../../../common/Chip';
-import authorAvatar from '/assets/images/author.jpg';
+// import authorAvatar from '/assets/images/author.jpg';
 import './styles.css';
 
 const BlogItem = ({

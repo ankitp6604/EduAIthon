@@ -21,8 +21,9 @@ const navigation = [
   { name: "Smart Investing", href: "/stock", current: false },
   // { name: "Smart Savings", href: "/savings", current: false },
   { name: "Learning", href: "/learning", current: false },
-  { name: "Party", href: "/party", current: false },
+  // { name: "Party", href: "/party", current: false },
   { name: "Blog", href: "/blog", current: false },
+  { name: "Games", href: "/games", current: false },
 ];
 
 function classNames(...classes) {

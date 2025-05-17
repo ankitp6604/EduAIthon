@@ -12,13 +12,11 @@ import { Divider, IconButton, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { AiFillRobot } from "react-icons/ai";
 import { RiRobot2Fill } from "react-icons/ri";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 const StaggeredDropDown = () => {
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
-  const [pdfFile, setPdfFile] = useState(null);
   const dispatch = useDispatch();
   const inferenceResult = useSelector(selectInferenceResult);
   const isBotOpen = useSelector(isbotOpen);
@@ -45,15 +43,6 @@ const StaggeredDropDown = () => {
     dispatch(fetchLLMInference(msg));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "application/pdf") {
-      setPdfFile(file);
-    } else {
-      toast.error("Please select a PDF file.");
-    }
-  };
-
   useEffect(() => {
     if (inferenceResult) {
       setMsgList([...msgList, { msg: inferenceResult, type: "bot" }]);
@@ -70,11 +59,6 @@ const StaggeredDropDown = () => {
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute bottom-[120%] right-0 w-[20rem] max-h-[80vh] overflow-hidden"
         >
           <div className="w-full h-full flex flex-col gap-2">
-            <input
-              type="file"
-              accept="application/pdf"
-              onChange={handleFileChange}
-            />
             <Option
               setOpen={setOpen}
               Icon={
