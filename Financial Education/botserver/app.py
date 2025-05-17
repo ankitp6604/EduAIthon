@@ -27,6 +27,13 @@ else:
     except Exception as e:
         print(f"--- CRITICAL ERROR initializing Gemini: {str(e)} ---")
 
+SYSTEM_PROMPT = (
+    "You are a helpful, accurate, and concise financial assistant. "
+    "You only answer questions related to finance, banking, investing, saving, and economics. "
+    "If a question is not related to finance, politely refuse to answer. "
+    "Always use simple, clear language suitable for beginners."
+)
+
 def get_hist_data(symbol):
     """Get historical stock data for a given symbol"""
     try:
@@ -60,8 +67,8 @@ def chatwithbot(txt: str):
     if not gemini_api_key:
         return "[ERROR] Gemini API key not configured."
     try:
-        response = gemini_model.generate_content(txt)
-        # The Gemini SDK returns a response object; get the text content
+        prompt = f"{SYSTEM_PROMPT}\nUser: {txt}"
+        response = gemini_model.generate_content(prompt)
         if hasattr(response, 'text'):
             return response.text
         elif hasattr(response, 'candidates') and response.candidates:

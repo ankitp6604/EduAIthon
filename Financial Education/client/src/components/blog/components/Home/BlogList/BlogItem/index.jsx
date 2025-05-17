@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Chip from '../../../common/Chip';
-import authorAvatar from '/assets/images/author.jpg';
+// import authorAvatar from '/assets/images/author.jpg';
 import './styles.css';
 
 const BlogItem = ({
@@ -45,7 +45,7 @@ const BlogItem = ({
       <p className='blogItem-desc'>{blog.articlesShortDescription}</p>
       <footer>
         <div className='blogItem-author'>
-          <img src={authorAvatar} alt='avatar' />
+          <img src="https://via.placeholder.com/150" alt='avatar' />
           <div>
             <h6>{blog.authors[0].authorName}</h6>
             <p>{convertToNormalDateTime(blog.publishedAt.date)}</p>

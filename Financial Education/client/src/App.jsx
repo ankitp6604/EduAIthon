@@ -42,6 +42,8 @@ import Interest from "./pages/banking/Interest";
 import Safety from "./pages/banking/Safety";
 import Economy from "./pages/banking/Economy";
 import Practice from "./pages/banking/Practice";
+import BudgetGame from "./pages/BudgetGame";
+import Games from "./pages/Games";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -200,6 +202,14 @@ function App() {
         {
           path: "/banking/practice",
           element: <Practice />,
+        },
+        {
+          path: "/budget-game",
+          element: <BudgetGame />,
+        },
+        {
+          path: "/games",
+          element: <Games />,
         },
       ],
     },
