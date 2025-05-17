@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import { toast } from "react-toastify";
-import Api from "../../api";
+import Api from "../../api/index";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchLLMInference,

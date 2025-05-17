@@ -14,6 +14,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import { Leaderboard, Logout, Person, Stream } from "@mui/icons-material";
 import { AiOutlineProfile } from "react-icons/ai";
 import { RiProfileLine } from "react-icons/ri";
+import { jwtDecode } from 'jwt-decode';
 
 const navigation = [
   { name: "Home", href: "/home", current: false },
@@ -21,9 +22,13 @@ const navigation = [
   // { name: "Smart Investing", href: "/stock", current: false },
   // { name: "Smart Savings", href: "/savings", current: false },
   { name: "Learning", href: "/learning", current: false },
-  // { name: "Party", href: "/party", current: false },
+  { name: "Party", href: "/party", current: false },
   { name: "Blog", href: "/blog", current: false },
   { name: "Games", href: "/games", current: false },
+];
+
+const adminNavigation = [
+  { name: "Manage Lessons", href: "/admin/lessons", current: false },
 ];
 
 function classNames(...classes) {
@@ -34,11 +39,14 @@ function NavBar() {
   const [path, setPath] = useState(window.location.pathname);
   const getInitialUser = () => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
+    const token = localStorage.getItem("token");
+    if (storedUser && token) {
       try {
-        return JSON.parse(storedUser);
+        const decodedToken = jwtDecode(token);
+        const userData = JSON.parse(storedUser);
+        return { ...userData, isAdmin: decodedToken.isAdmin };
       } catch (e) {
-        console.error("Error parsing user from localStorage", e);
+        console.error("Error parsing user data", e);
         return null;
       }
     }
@@ -91,6 +99,8 @@ function NavBar() {
     setPath(window.location.pathname);
   }, [window.location.pathname]);
 
+  const isAdmin = user?.isAdmin;
+
   return (
     <Disclosure as="nav" className="bg-[#33006F] sticky top-0 z-[999]">
       {({ open }) => (
@@ -123,6 +133,21 @@ function NavBar() {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.href === path
+                            ? "bg-gray-900 underline font-bold"
+                            : "hover:underline",
+                          "rounded-md px-3 py-2 text-sm text-white"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                    {isAdmin && adminNavigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
@@ -280,6 +305,22 @@ function NavBar() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as="a"
+                  href={item.href}
+                  className={classNames(
+                    item.href === path
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block rounded-md px-3 py-2 text-base font-medium"
+                  )}
+                  aria-current={item.current ? "page" : undefined}
+                >
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+              {isAdmin && adminNavigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"

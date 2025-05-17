@@ -9,6 +9,7 @@ import multer from "multer";
 import init from "./db/config.js";
 import uR from "./routers/userRouter.js";
 import gR from "./routers/gameRouter.js";
+import lR from "./routers/lessonRouter.js";
 import User from "./models/userSchema.js";
 dotenv.config();
 
@@ -41,6 +42,7 @@ bR.get("/", (req, res) => {
 // Routes /api/{route}
 bR.use("/user", uR);
 bR.use("/game", gR);
+bR.use("/lessons", lR);
 
 // multer
 const storage = multer.diskStorage({

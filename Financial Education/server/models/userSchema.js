@@ -329,6 +329,10 @@ const userSchema = new mongoose.Schema({
 
   inventory: inventoryItem,
   tasks: [TaskSchema],
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
 });
 
 const User = mongoose.model("innov_user", userSchema);

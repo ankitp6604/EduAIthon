@@ -13,7 +13,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { toast } from 'react-toastify';
 import { CircularProgress } from '@mui/material';
 import financeQuestions from '../data/dailyData';
-import Api from '../api';
+import Api from '../api/index';
 
 const NotiModal = ({ open, handleClose, userInfo }) => {
     const [loading, setLoading] = useState(true)

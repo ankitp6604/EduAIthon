@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Center from '../animated-components/Center';
 import { CircularProgress, IconButton, Tooltip } from "@mui/material";
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
-import Api from "../api";
+import Api from "../api/index";
 import AddTaskModal from '../components/AddTaskModal';
 import { toast } from 'react-toastify';
 import Checkbox from '@mui/material/Checkbox';

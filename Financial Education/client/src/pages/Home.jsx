@@ -9,7 +9,7 @@ import Right from "../animated-components/Right";
 import logo from "../assets/logo-hck.svg";
 import WaterGrid from "../components/watergrid/WaterGrid";
 import { CircularProgress } from "@mui/material";
-import Api from "../api";
+import Api from "../api/index";
 
 const Home = () => {
   const [user, setUser] = useState();

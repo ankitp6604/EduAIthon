@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { TextField } from '@mui/material';
-import Api from '../api';
+import Api from '../api/index';
 import { toast } from 'react-toastify';
 
 const AddTaskModal = ({ open, handleClose, user, setChange, change }) => {

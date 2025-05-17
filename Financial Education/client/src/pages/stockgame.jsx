@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { Button, Modal } from "@mui/material";
-import Api from "../api";
+import Api from "../api/index";
 
 function StockGame() {
   function classNames(...classes) {

@@ -8,7 +8,7 @@ import sword from '../assets/sword.png'
 import shield from '../assets/shield.png'
 import NewParty from '../components/party/NewParty';
 import Fighting from '../components/party/Fighting';
-import Api from '../api';
+import Api from '../api/index';
 import { toast } from 'react-toastify';
 
 const Party = () => {

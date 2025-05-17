@@ -12,7 +12,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Center from '../animated-components/Center';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import Api from '../api';
+import Api from '../api/index';
 import AvatarComp from '../components/avatar/AvatarComp';
 import Tabs from '../components/profile/Tabs';
 

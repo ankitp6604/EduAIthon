@@ -31,7 +31,6 @@ import Savings from "./pages/Savings";
 import Learning from "./pages/Learning";
 import LeaderBoard from "./pages/FriendsPage";
 import StockGame from "./pages/stockgame";
-import Banking from "./components/lesson3";
 import BankingQAndA from "./components/QandA/Banking";
 import Introduction from "./pages/banking/Introduction";
 import Accounts from "./pages/banking/Accounts";
@@ -44,6 +43,8 @@ import Economy from "./pages/banking/Economy";
 import Practice from "./pages/banking/Practice";
 import BudgetGame from "./pages/BudgetGame";
 import Games from "./pages/Games";
+import LessonManager from "./components/admin/LessonManager";
+import Lesson from "./components/lesson";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -137,7 +138,7 @@ function App() {
         },
         {
           path: "/budgeting",
-          element: <Budgeting />,
+          element: <Lesson category="budgeting" />,
         },
         {
           path: "/budgeting/qanda",
@@ -145,7 +146,7 @@ function App() {
         },
         {
           path: "/investing",
-          element: <Investing />,
+          element: <Lesson category="investing" />,
         },
         {
           path: "/investing/qanda",
@@ -153,7 +154,7 @@ function App() {
         },
         {
           path: "/financing",
-          element: <Financing />,
+          element: <Lesson category="financing" />,
         },
         {
           path: "financing/qanda",
@@ -161,7 +162,7 @@ function App() {
         },
         {
           path: "/banking",
-          element: <Banking />,
+          element: <Lesson category="banking" />,
         },
         {
           path: "/banking/qanda",
@@ -210,6 +211,10 @@ function App() {
         {
           path: "/games",
           element: <Games />,
+        },
+        {
+          path: "/admin/lessons",
+          element: <LessonManager />,
         },
       ],
     },

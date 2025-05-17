@@ -167,8 +167,7 @@ class UserController {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch)
         return res.status(400).json({ message: "Incorrect Password!" });
-      // this.sendEmail(email);
-      // this.newDayTaskLoad(req, res);
+      
       const secretKey = process.env.JWTkey;
       const token = jwt.sign(
         {
@@ -177,6 +176,7 @@ class UserController {
           name: user.name,
           pfp: user.pfp,
           level: user.gaming?.level,
+          isAdmin: user.isAdmin
         },
         secretKey,
         { expiresIn: "12h" }

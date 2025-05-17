@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { CircularProgress } from '@mui/material';
-import Api from '../../api';
+import Api from '../../api/index';
 import { toast } from 'react-toastify';
 
 const NewParty = ({ usersList, user, change, setChange }) => {

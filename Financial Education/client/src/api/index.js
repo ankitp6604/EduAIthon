@@ -12,8 +12,10 @@ const api = axios.create({
 
 api.interceptors.request.use(async (req) => {
   const token = localStorage.getItem("token");
+  console.log("Token from localStorage:", token);
   if (token) {
     req.headers.Authorization = `Bearer ${token}`;
+    console.log("Request headers:", req.headers);
   }
   return req;
 });
@@ -23,6 +25,7 @@ api.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log("API Error:", error.response?.data);
     if (error.response && error.response.status === 401) {
       // localStorage.removeItem('token');
       toast.error("Session Expired! Please Login Again.", {
@@ -155,6 +158,31 @@ class Api {
 
   static async sendUserInfo(data) {
     // ... existing code ...
+  }
+
+  // Lesson endpoints
+  static async getLessons() {
+    return await api.get("api/lessons");
+  }
+
+  static async getLessonsByCategory(category) {
+    return await api.get(`api/lessons/category/${category}`);
+  }
+
+  static async getLessonById(id) {
+    return await api.get(`api/lessons/${id}`);
+  }
+
+  static async createLesson(lessonData) {
+    return await api.post("api/lessons", lessonData);
+  }
+
+  static async updateLesson(id, lessonData) {
+    return await api.put(`api/lessons/${id}`, lessonData);
+  }
+
+  static async deleteLesson(id) {
+    return await api.delete(`api/lessons/${id}`);
   }
 }
 

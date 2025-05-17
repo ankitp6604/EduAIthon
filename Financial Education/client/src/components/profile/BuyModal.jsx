@@ -9,7 +9,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DiamondIcon from '@mui/icons-material/Diamond';
 import sword from '../../assets/sword.png'
 import shield from '../../assets/shield.png'
-import Api from '../../api';
+import Api from '../../api/index';
 import { toggleprof } from '../../redux/features/profslice';
 import { toast } from 'react-toastify';
 

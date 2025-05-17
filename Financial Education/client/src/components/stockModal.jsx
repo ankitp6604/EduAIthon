@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { CircularProgress } from "@mui/material";
-import Api from "../api";
+import Api from "../api/index";
 
 const StockModal = ({ open , userInfo, handleClose}) => {
   const [loading, setLoading] = useState(true);

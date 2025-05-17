@@ -5,7 +5,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DiamondIcon from '@mui/icons-material/Diamond';
 import { motion } from "framer-motion";
-import Api from '../../api';
+import Api from '../../api/index';
 
 const InvCard = ({ item, itemtype, handleClickOpen, setType, setSelectedItem, setItemType }) => {
     console.log(item)

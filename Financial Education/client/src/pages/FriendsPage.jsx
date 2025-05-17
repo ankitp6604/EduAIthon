@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Api from "../api";
+import Api from "../api/index";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import {
