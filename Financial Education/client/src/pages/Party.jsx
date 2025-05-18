@@ -124,20 +124,24 @@ const Party = () => {
                                     You are already in a party!
                                 </div>
                                 <div className='mt-[-10px]'>
-                                    {user.email === partyInfo.members[0].email ?"You can start the party after everyone is ready." : "Please wait for the party leader to start the party."} 
+                                    {partyInfo?.members?.[0] && user.email === partyInfo.members[0].email 
+                                        ? "You can start the party after everyone is ready." 
+                                        : "Please wait for the party leader to start the party."} 
                                 </div>
                                 <div className='mt-12 bg-white rounded-md shadow-lg relative flex flex-col items-center justify-center p-4'>
-                                    {user.email === partyInfo.members[0].email && (<button onClick={handleStartParty} className='absolute top-4 right-4 bg-cobalt p-2.5 rounded-md hover:bg-d-blue active:bg-cobalt text-white'>
-                                        Start Party
-                                    </button>)}
+                                    {partyInfo?.members?.[0] && user.email === partyInfo.members[0].email && (
+                                        <button onClick={handleStartParty} className='absolute top-4 right-4 bg-cobalt p-2.5 rounded-md hover:bg-d-blue active:bg-cobalt text-white'>
+                                            Start Party
+                                        </button>
+                                    )}
                                     <div className='text-2xl font-bold'>
-                                        Party Name: {partyInfo.partyName}
+                                        Party Name: {partyInfo?.partyName || 'Loading...'}
                                     </div>
                                     <div className='mt-[10px]'>
-                                        Party Leader: {partyInfo.members[0].name}
+                                        Party Leader: {partyInfo?.members?.[0]?.name || 'Loading...'}
                                     </div>
                                     <div className='mt-4 '>
-                                        {partyInfo.members.map((member) => (
+                                        {partyInfo?.members?.map((member) => (
                                             <div key={member.email} className='flex items-center justify-center gap-4 mx-4'>
                                                 <img
                                                     src={member.gaming.avatar.image}
