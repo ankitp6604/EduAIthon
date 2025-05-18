@@ -1,7 +1,7 @@
 # 🎓 Bilingual AI-Powered Learning Platform for English-Speaking Skills & Financial Literacy
 
 ### 🚀 Project Submission for **EduAIthon 2025** | Team MANTHAN (Team 34)  
-### 🏆 Aligned with **UN SDG 4: Quality Education**
+### 🏆 Aligned with **SDG 4: Quality Education**
 
 ---
 
