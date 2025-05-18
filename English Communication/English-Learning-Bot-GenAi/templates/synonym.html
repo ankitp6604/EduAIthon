@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Synonym Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f1f4f9, #dff1ff);
+      margin: 0;
+      padding-top: 70px;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+    }
+    .navbar {
+      backdrop-filter: saturate(180%) blur(20px);
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+      transition: top 0.4s ease-in-out;
+    }
+    .navbar-brand {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      background: linear-gradient(45deg, #0061ff, #60efff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    .nav-link {
+      font-weight: 600;
+      color: #333;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #0061ff;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: linear-gradient(to right, #0061ff, #60efff);
+      color: white;
+      border-radius: 15px;
+      margin: 0 15px 30px;
+      box-shadow: 0 8px 25px rgba(0, 97, 255, 0.5);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    .card-custom {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 97, 255, 0.1);
+      padding: 35px 30px;
+    }
+
+    .footer-custom {
+      background: linear-gradient(to right, #0061ff, #60efff);
+      color: white;
+      padding: 30px 10px;
+      font-size: 1rem;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+      font-weight: 500;
+    }
+    .footer-custom p {
+      margin: 5px 0;
+    }
+
+    .output-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .output-box h5 {
+      color: #0d47a1;
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+    <a class="navbar-brand" href="{{ url_for('home') }}" style="text-decoration: none;">English Tutor</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto gap-3">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('daily_challenges') }}">Daily Challenges</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('tts_page') }}">Text to Speech</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('chat_page') }}">Grammar Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('synonym_page') }}">Synonym Finder</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('chapters_page') }}">Chapters</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>🔁 Synonym Finder</h1>
+    <p>Find English and Kannada synonyms instantly</p>
+  </section>
+
+  <!-- Synonym Form Section -->
+  <div class="container mb-5">
+    <div class="card-custom">
+      <form id="synonymForm">
+        <div class="mb-3">
+          <label for="wordInput" class="form-label">Enter a word</label>
+          <input type="text" class="form-control" id="wordInput" placeholder="e.g., happy" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Find Synonyms</button>
+      </form>
+
+      <div class="output-box d-none" id="resultBox">
+        <h5>Meanings & Synonyms</h5>
+        <div id="meaningResults"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-custom text-center">
+    <div class="container">
+      <p>&copy; 2025 <strong>English Tutor</strong> | Empowering learners with AI 💡</p>
+      <p>Designed for <strong>SDG 4 - Quality Education</strong></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Synonym Script -->
+  <script>
+  const form = document.getElementById('synonymForm');
+  const wordInput = document.getElementById('wordInput');
+  const resultBox = document.getElementById('resultBox');
+  const meaningResults = document.getElementById('meaningResults');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const word = wordInput.value.trim();
+    if (!word) return;
+
+    const formData = new FormData();
+    formData.append('word', word);
+
+    meaningResults.innerHTML = '';
+    resultBox.classList.add('d-none');
+
+    try {
+      const response = await fetch('/synonym', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        alert("Error: " + data.error);
+        return;
+      }
+
+      if (data.meanings.length === 0) {
+        meaningResults.innerHTML = "<p>No meanings found.</p>";
+      } else {
+        data.meanings.forEach((entry, index) => {
+          const block = document.createElement("div");
+          block.classList.add("mb-3", "p-3", "border", "rounded", "bg-light");
+
+          block.innerHTML = `
+            <h6>Meaning ${index + 1}:</h6>
+            <p><strong>Definition:</strong> ${entry.definition}</p>
+            <p><strong>English Synonyms:</strong> ${entry.english_synonyms.join(', ') || 'None'}</p>
+            <p><strong>Kannada Translations:</strong> ${entry.kannada_translations.join(', ') || 'None'}</p>
+          `;
+          meaningResults.appendChild(block);
+        });
+      }
+
+      resultBox.classList.remove('d-none');
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while fetching synonyms.");
+    }
+  });
+</script>
+
+</body>
+</html>

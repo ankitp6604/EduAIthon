@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ lesson.title if lesson else "Lesson" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Google Fonts (added Pacifico for navbar brand) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600&family=Pacifico&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Poppins', 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f1f4f9, #dff1ff);
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    /* Container wider and margin-top for fixed navbar */
+    .container.main-container {
+      max-width: 1100px;
+      margin: 90px auto 80px;
+      padding: 0 24px;
+    }
+
+    /* Card styling */
+    .card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0, 97, 255, 0.12);
+      padding: 32px 36px;
+      margin-bottom: 40px;
+    }
+
+    .lesson-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #f2711c;
+      letter-spacing: 0.03em;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 1.6rem;
+      margin-top: 36px;
+      margin-bottom: 16px;
+      color: #004ecc;
+      border-bottom: 3px solid #60efff;
+      padding-bottom: 6px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      color: #34495e;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      color: #34495e;
+      font-weight: 500;
+      font-size: 1.05rem;
+      max-height: 160px;
+      overflow-y: auto;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+      margin-bottom: 10px;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0061ff;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1;
+      top: 3px;
+    }
+
+    /* Scrollbar for lists */
+    ul::-webkit-scrollbar {
+      width: 6px;
+    }
+    ul::-webkit-scrollbar-thumb {
+      background: #60efff;
+      border-radius: 3px;
+    }
+
+    /* Quiz box */
+    .quiz {
+      background: #e7f5ff;
+      padding: 24px;
+      border-radius: 20px;
+      margin-top: 28px;
+      box-shadow: 0 6px 20px rgba(0, 97, 255, 0.1);
+      user-select: none;
+    }
+
+    .quiz-question {
+      margin-bottom: 14px;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #004ecc;
+    }
+
+    .quiz-options {
+      margin-bottom: 14px;
+      padding-left: 0;
+    }
+
+    .quiz-options li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .quiz-options li label {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: #2c3e50;
+      user-select: none;
+    }
+
+    .quiz-options li::before {
+      content: none;
+    }
+
+    #feedback-0, #feedback-1, #feedback-2, #feedback-3, #feedback-4 {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .correct-answer {
+      color: green;
+      font-weight: 700;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 40px;
+      text-decoration: none;
+      color: #0061ff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.25s ease;
+      user-select: none;
+    }
+
+    .back-link:hover {
+      color: #004ecc;
+    }
+
+    /* --- Navbar Styling from home.html --- */
+    nav.navbar {
+      backdrop-filter: saturate(180%) blur(20px);
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+      transition: top 0.4s ease-in-out, transform 0.3s ease;
+      z-index: 1030;
+    }
+    nav.navbar.hidden {
+      transform: translateY(-100%);
+    }
+    .navbar-brand {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      background: linear-gradient(45deg, #0061ff, #60efff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      user-select: none;
+    }
+    .nav-link {
+      font-weight: 600;
+      color: #333;
+      transition: color 0.2s ease;
+      user-select: none;
+    }
+    .nav-link:hover {
+      color: #0061ff;
+    }
+    .navbar-toggler {
+      border: none;
+    }
+
+    @media (max-width: 600px) {
+      .container.main-container {
+        max-width: 95%;
+        margin-top: 80px;
+        padding: 0 12px;
+      }
+      .lesson-title {
+        font-size: 1.8rem;
+      }
+      h2 {
+        font-size: 1.3rem;
+        margin-top: 28px;
+      }
+      .card {
+        padding: 24px 28px;
+        margin-bottom: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar updated with home.html style -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">English Tutor</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto gap-3">
+          <a class="nav-link" href="{{ url_for('daily_challenges') }}">Daily Challenges</a>
+          <a class="nav-link" href="{{ url_for('tts_page') }}">Text to Speech</a>
+          <a class="nav-link" href="{{ url_for('chat_page') }}">Grammar Feedback</a>
+          <a class="nav-link" href="{{ url_for('synonym_page') }}">Synonym Finder</a>
+          <a class="nav-link" href="{{ url_for('chapters_page') }}">Chapters</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container main-container">
+    <div class="card">
+      <div class="lesson-title">{{ lesson.title }}</div>
+
+      <p><strong>Objective:</strong> {{ lesson.objective }}</p>
+
+      <h2>Explanation</h2>
+      <p>{{ lesson.explanation }}</p>
+
+      {% if lesson.examples %}
+        <h2>Examples</h2>
+        <ul>
+          {% for ex in lesson.examples %}
+            <li>{{ ex }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if lesson.tips %}
+        <h2>Tips</h2>
+        <ul>
+          {% for tip in lesson.tips %}
+            <li>{{ tip }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if lesson.common_mistakes %}
+        <h2>Common Mistakes</h2>
+        <ul>
+          {% for mistake in lesson.common_mistakes %}
+            <li>{{ mistake }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if lesson.mini_quiz %}
+        <h2>Mini Quiz</h2>
+        {% for q in lesson.mini_quiz %}
+          <div class="quiz" data-qindex="{{ loop.index0 }}">
+            <div class="quiz-question">{{ q.question }}</div>
+            <ul class="quiz-options">
+              {% for option in q.options %}
+                <li>
+                  <label>
+                    <input 
+                      type="radio" 
+                      name="quiz{{ loop.index0 }}" 
+                      value="{{ option }}" 
+                      data-correct="{{ q.correct_answer }}" 
+                      data-explanation="{{ q.explanation | e }}"
+                    />
+                    {{ option }}
+                  </label>
+                </li>
+              {% endfor %}
+            </ul>
+            <div id="feedback-{{ loop.index0 }}" aria-live="polite"></div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <a href="{{ url_for('chapters_page') }}" class="back-link">← Back to Chapters</a>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Quiz interaction logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const quizzes = document.querySelectorAll('.quiz');
+      quizzes.forEach(quiz => {
+        const qIndex = quiz.getAttribute('data-qindex');
+        const inputs = quiz.querySelectorAll(`input[name="quiz${qIndex}"]`);
+        const feedbackEl = document.getElementById(`feedback-${qIndex}`);
+
+        inputs.forEach(input => {
+          input.addEventListener('change', () => {
+            if (feedbackEl.innerHTML.trim() !== '') return;
+
+            const selected = input.value;
+            const correct = input.dataset.correct;
+            const explanation = input.dataset.explanation;
+
+            if (selected === correct) {
+              feedbackEl.innerHTML = `<p style="color: green; font-weight: 700;">✅ Correct!</p><p>${explanation}</p>`;
+            } else {
+              feedbackEl.innerHTML = `<p style="color: red; font-weight: 700;">❌ Incorrect.</p><p>The correct answer is: <strong>${correct}</strong>.</p><p>${explanation}</p>`;
+            }
+          });
+        });
+      });
+    });
+
+    // Navbar hide on scroll (same as home.html)
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('nav.navbar');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop && scrollTop > 80) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+  </script>
+
+</body>
+</html>

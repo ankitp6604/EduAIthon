@@ -1,0 +1,9 @@
+gradio
+groq
+numpy
+openai-whisper
+gtts
+librosa
+nltk
+deep-translator
+Flask

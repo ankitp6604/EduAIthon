@@ -1,0 +1,11 @@
+{
+  "2025-05-18": {
+    "question": "Which of the following sentences is in the passive voice?",
+    "options": {
+      "A": "The dog bites the man.",
+      "B": "The man was bitten by the dog."
+    },
+    "correct": "B",
+    "explanation": "In the passive voice, the subject receives the action of the verb, which is 'was bitten' in this sentence."
+  }
+}

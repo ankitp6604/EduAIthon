@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Challenges</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* Global */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f1f4f9, #dff1ff);
+      margin: 0;
+      padding-top: 70px; /* navbar height */
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    /* Navbar */
+    .navbar {
+      backdrop-filter: saturate(180%) blur(20px);
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+      transition: top 0.4s ease-in-out;
+    }
+    .navbar-brand {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      background: linear-gradient(45deg, #0061ff, #60efff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    .nav-link {
+      font-weight: 600;
+      color: #333;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #0061ff;
+    }
+    .navbar-toggler {
+      border: none;
+    }
+
+    /* Section title */
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #004ecc;
+      letter-spacing: 0.5px;
+    }
+
+    /* Card styling */
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 97, 255, 0.1);
+      padding: 30px 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 97, 255, 0.2);
+    }
+
+    /* Button styling consistent with home */
+    .btn-primary {
+      background: #0061ff;
+      border: none;
+      font-weight: 600;
+      border-radius: 30px;
+      padding: 10px 25px;
+      box-shadow: 0 4px 15px rgba(0, 97, 255, 0.3);
+      transition: background 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #004ecc;
+      box-shadow: 0 6px 20px rgba(0, 78, 204, 0.5);
+    }
+    .btn-outline-primary {
+      border-radius: 30px;
+      font-weight: 600;
+      padding: 10px 25px;
+      color: #0061ff;
+      border-color: #0061ff;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .btn-outline-primary:hover {
+      background: #0061ff;
+      color: white;
+    }
+
+    /* Feedback and stats */
+    #feedback {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-top: 15px;
+      min-height: 24px;
+    }
+    .stats {
+      font-size: 1rem;
+      margin-top: 25px;
+      color: #004ecc;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer.footer-custom {
+      text-align: center;
+      background: linear-gradient(to right, #0061ff, #60efff);
+      color: white;
+      padding: 30px 10px;
+      font-size: 1rem;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+      font-weight: 500;
+      margin-top: 60px;
+    }
+    footer.footer-custom p {
+      margin: 5px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+    .navbar.scrolled {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+        .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: linear-gradient(to right, #0061ff, #60efff);
+      color: white;
+      border-radius: 15px;
+      margin: 0 15px 30px;
+      box-shadow: 0 8px 25px rgba(0, 97, 255, 0.5);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">English Tutor</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto gap-3">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('daily_challenges') }}">Daily Challenges</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('tts_page') }}">Text to Speech</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('chat_page') }}">Grammar Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('synonym_page') }}">Synonym Finder</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('chapters_page') }}">Chapters</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <section class="hero">
+    <h1>📚 Daily English Challenges</h1>
+    <p>Test your English skills with our daily challenges!</p>
+  </section>
+  <!-- Page Title -->
+  <div class="container">
+
+    <div class="row g-4">
+      <!-- Grammar Challenge -->
+      <div class="col-md-6">
+        <div class="card">
+          <h5 class="mb-3">🎯 Grammar Challenge</h5>
+          <form id="grammarForm">
+            <p><strong id="grammarQuestion">{{ grammar.question }}</strong></p>
+
+            <div id="grammarOptionsContainer">
+              {% for option in grammar.options %}
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="answer"
+                  value="{{ option[0] }}"
+                  id="option{{ option[0] }}"
+                />
+                <label class="form-check-label" for="option{{ option[0] }}">
+                  {{ option[0] }}) {{ option[1] }}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          </form>
+          <div id="feedback"></div>
+          <div class="stats" id="stats"></div>
+        </div>
+      </div>
+
+      <!-- Vocabulary Word -->
+      <div class="col-md-6">
+        <div class="card">
+          <h5 class="mb-3">🧠 Vocabulary Word</h5>
+          <p><strong>Word:</strong> <span id="vocabWord">{{ vocab.word }}</span></p>
+          <p><strong>Part of Speech:</strong> <span id="vocabPOS">{{ vocab.part_of_speech }}</span></p>
+          <p><strong>Meaning:</strong> <span id="vocabMeaning">{{ vocab.meaning }}</span></p>
+          <p><strong>Example:</strong> <span id="vocabExample">{{ vocab.example_sentence }}</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{{ url_for('home') }}" class="btn btn-outline-primary">⬅ Back to Home</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-custom mt-5">
+    <p>© 2025 English Tutor. All rights reserved.</p>
+    <p>Built with ❤️ using Flask, Bootstrap, and AI-powered English learning.</p>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Navbar hide/show on scroll (same as home.html)
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', function () {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop && scrollTop > 100) {
+        navbar.style.top = '-80px';
+      } else {
+        navbar.style.top = '0';
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+      // Add 'scrolled' class after scrolling down for subtle shadow
+      if (scrollTop > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    const form = document.getElementById("grammarForm");
+  const feedbackDiv = document.getElementById("feedback");
+  const statsDiv = document.getElementById("stats");
+  const generateBtn = document.getElementById("generateBtn");
+
+  // Stats data (attempts, correct, streaks)
+  let stats = JSON.parse(localStorage.getItem("grammarStats")) || {
+    attempts: 0,
+    correct: 0,
+    streak: 0,
+    maxStreak: 0,
+  };
+
+  // Current correct answer for validation (initialized from server)
+  let currentCorrect = "{{ grammar.correct }}";
+
+  function updateStatsDisplay() {
+    const percent = stats.attempts ? Math.round((stats.correct / stats.attempts) * 100) : 0;
+    statsDiv.innerHTML = `
+      <strong>📊 Progress:</strong><br>
+      Challenges Attempted: ${stats.attempts}<br>
+      Win Percentage: ${percent}%<br>
+      Current Streak: ${stats.streak}<br>
+      Max Streak: ${stats.maxStreak}
+    `;
+  }
+
+  function clearFeedback() {
+    feedbackDiv.innerHTML = "";
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    clearFeedback();
+
+    const selected = document.querySelector('input[name="answer"]:checked');
+    if (!selected) {
+      feedbackDiv.innerHTML =
+        '<div class="alert alert-warning">⚠️ Please select an answer!</div>';
+      return;
+    }
+
+    const isCorrect = selected.value === currentCorrect;
+
+    stats.attempts += 1;
+    if (isCorrect) {
+      stats.correct += 1;
+      stats.streak += 1;
+      if (stats.streak > stats.maxStreak) stats.maxStreak = stats.streak;
+      feedbackDiv.innerHTML = `
+        <div class="alert alert-success">✅ Correct!<br><br>
+        <strong>Explanation:</strong><br>
+        {{ grammar.explanation | safe }}
+      </div>
+      `;
+    } else {
+      stats.streak = 0;
+      // Show correct option text dynamically
+      const correctOptionLabel = document.querySelector(`label[for="option${currentCorrect}"]`);
+      const correctText = correctOptionLabel ? correctOptionLabel.textContent.trim() : '';
+      feedbackDiv.innerHTML = `
+        <div class="alert alert-danger">❌ Incorrect.<br><br>
+        The correct answer is ${currentCorrect}) "${correctText.split(') ')[1] || ''}".<br><br>
+        <strong>Explanation:</strong><br>
+        {{ grammar.explanation | safe }}
+      </div>
+      `;
+    }
+
+    localStorage.setItem("grammarStats", JSON.stringify(stats));
+    updateStatsDisplay();
+  });
+
+  // Update stats on page load
+  updateStatsDisplay();
+
+  // Handle Generate New Challenge button click
+  generateBtn.addEventListener("click", async () => {
+    generateBtn.disabled = true;
+    generateBtn.textContent = "Generating...";
+
+    try {
+      const response = await fetch("/generate-challenge", { method: "POST" });
+      const data = await response.json();
+
+      // Update Grammar challenge
+      document.getElementById("grammarQuestion").textContent = data.grammar.question;
+
+      const optionsContainer = document.getElementById("grammarOptionsContainer");
+      optionsContainer.innerHTML = ""; // clear old options
+      data.grammar.options.forEach(([key, val]) => {
+        const div = document.createElement("div");
+        div.className = "form-check";
+
+        const input = document.createElement("input");
+        input.className = "form-check-input";
+        input.type = "radio";
+        input.name = "answer";
+        input.id = "option" + key;
+        input.value = key;
+
+        const label = document.createElement("label");
+        label.className = "form-check-label";
+        label.htmlFor = "option" + key;
+        label.textContent = `${key}) ${val}`;
+
+        div.appendChild(input);
+        div.appendChild(label);
+        optionsContainer.appendChild(div);
+      });
+
+      // Update vocab word
+      document.getElementById("vocabWord").textContent = data.vocab.word;
+      document.getElementById("vocabPOS").textContent = data.vocab.part_of_speech;
+      document.getElementById("vocabMeaning").textContent = data.vocab.meaning;
+      document.getElementById("vocabExample").textContent = data.vocab.example_sentence;
+
+      // Update current correct answer and clear feedback & form
+      currentCorrect = data.grammar.correct;
+      clearFeedback();
+      form.reset();
+
+      // Reset stats for new challenge? (Optional: keep stats or reset here)
+      // If you want to reset stats on new challenge uncomment below lines:
+      /*
+      stats = { attempts: 0, correct: 0, streak: 0, maxStreak: 0 };
+      localStorage.setItem("grammarStats", JSON.stringify(stats));
+      updateStatsDisplay();
+      */
+
+    } catch (err) {
+      alert("Failed to generate new challenge. Please try again.");
+      console.error(err);
+    }
+
+    generateBtn.disabled = false;
+    generateBtn.textContent = "🔄 Generate New Challenge";
+  });
+
+  </script>
+</body>
+</html>
