@@ -1,0 +1,30 @@
+{
+  "2025-05-15": "Here's your daily grammar challenge:\n\n**Challenge:**\n\nWhich of the following sentences is in the correct passive voice?\n\nA) The dog bites the mailman.\nB) The mailman is bitten by the dog.\nC) The mailman is bit by the dog.\n\n**Explanation:**\n\nIn the passive voice, the focus is on the receiver of the action, rather than the performer of the action. To form the passive voice, we use a form of the verb \"to be\" (in this case, \"is\") + the past participle of the main verb (in this case, \"bitten\"). \n\nCan you identify the correct passive voice sentence?",
+  "2025-05-16": {
+    "question": "Which sentence is correct?",
+    "options": {
+      "A": "He do his homework every day.",
+      "B": "He does his homework every day."
+    },
+    "correct": "B",
+    "explanation": "He does is correct because in the third person singular form of 'do' we say 'does'."
+  },
+  "2025-05-17": {
+    "question": "Which sentence is correct?",
+    "options": {
+      "A": "He do his homework every day.",
+      "B": "He does his homework every day."
+    },
+    "correct": "B",
+    "explanation": "He does is correct because in the third person singular form of 'do' we say 'does'."
+  },
+  "2025-05-18": {
+    "question": "By the time I __________ the bus, it had left the station.",
+    "options": {
+      "A": "caught",
+      "B": "have caught"
+    },
+    "correct": "A",
+    "explanation": "We use the past perfect to talk about an action that happened before another action in the past."
+  }
+}

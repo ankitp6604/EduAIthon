@@ -1,0 +1,67 @@
+<!-- speak.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speak with AI</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { margin: 10px; padding: 10px; font-size: 16px; }
+    #response, #feedback { margin-top: 20px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h2>Speak with the AI</h2>
+  <button onclick="startRecording()">Start Recording</button>
+  <button onclick="stopRecording()">Stop Recording</button>
+  <p id="status"></p>
+
+  <h3>AI Feedback:</h3>
+  <div id="feedback"></div>
+
+  <h3>AI Response:</h3>
+  <div id="response"></div>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    function startRecording() {
+      document.getElementById('status').innerText = 'Recording...';
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.start();
+
+          mediaRecorder.ondataavailable = e => {
+            audioChunks.push(e.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(audioChunks, { type: 'audio/webm' });
+            const formData = new FormData();
+            formData.append('audio', blob);
+
+            fetch('/analyze_speech', {
+              method: 'POST',
+              body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+              document.getElementById('feedback').innerText = data.feedback;
+              document.getElementById('response').innerText = data.reply;
+              document.getElementById('status').innerText = 'Done';
+              audioChunks = [];
+            });
+          };
+        });
+    }
+
+    function stopRecording() {
+      document.getElementById('status').innerText = 'Processing...';
+      mediaRecorder.stop();
+    }
+  </script>
+</body>
+</html>

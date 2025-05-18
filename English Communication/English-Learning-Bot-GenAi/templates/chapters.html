@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>English Tutor - Chapters</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600&family=Pacifico&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #f1f4f9, #dff1ff);
+      color: #2c3e50;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      transition: top 0.3s ease;
+    }
+
+    .navbar.hidden {
+      top: -80px; /* Hide navbar by sliding it up */
+    }
+
+    .navbar .logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      color: #0061ff;
+      font-weight: bold;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .navbar .nav-links a {
+      text-decoration: none;
+      color: #2c3e50;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      color: #0061ff;
+    }
+
+    /* Page Header */
+    header.page-header {
+      font-family: 'Pacifico', cursive;
+      color: #0061ff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      padding: 30px 40px 0;
+    }
+
+    /* Main Layout */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto 80px;
+      padding: 0 20px;
+      display: flex;
+      gap: 40px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      flex: 0 0 260px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 97, 255, 0.1);
+      padding: 24px;
+      height: fit-content;
+      position: sticky;
+      top: 110px;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      border-bottom: 2px solid #0061ff;
+      padding-bottom: 6px;
+      color: #004ecc;
+    }
+
+    .category-item {
+      margin-bottom: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #34495e;
+      padding: 10px 14px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .category-item.active,
+    .category-item:hover {
+      background: linear-gradient(to right, #0061ff, #60efff);
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 97, 255, 0.2);
+    }
+
+    /* Lessons - Using CSS Grid for column + row spacing */
+    .lessons-container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 40px 30px; /* 40px row-gap, 30px column-gap */
+    }
+
+    .lesson-card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(0, 97, 255, 0.12);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* Removed flexbox sizing as grid handles layout */
+    }
+
+    .lesson-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 22px 50px rgba(0, 97, 255, 0.3);
+    }
+
+    .lesson-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a2b47;
+      margin-bottom: 18px;
+      letter-spacing: 0.03em;
+    }
+
+    .sublessons-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      color: #7f8c8d;
+      font-weight: 500;
+      font-size: 0.95rem;
+      max-height: 140px;
+      overflow-y: auto;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+
+    .sublessons-list li {
+      margin-bottom: 8px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .sublessons-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #0061ff;
+    }
+
+    .sublessons-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sublessons-list::-webkit-scrollbar-thumb {
+      background: #60efff;
+      border-radius: 3px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #ffffff;
+      padding: 40px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #7f8c8d;
+      border-top: 1px solid #eee;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: #0061ff;
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .lessons-container {
+        display: block;
+      }
+      .lesson-card {
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+      .sidebar {
+        position: relative;
+        top: auto;
+        margin-bottom: 30px;
+      }
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+      .navbar .nav-links {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 10px;
+      }
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: linear-gradient(to right, #0061ff, #60efff);
+      color: white;
+      border-radius: 15px;
+      margin: 0 15px 30px;
+      box-shadow: 0 8px 25px rgba(0, 97, 255, 0.5);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a class="logo" href="{{ url_for('home') }}" style="text-decoration: none;">English Tutor</a>
+    <div class="nav-links">
+          <a class="nav-link" href="{{ url_for('daily_challenges') }}">Daily Challenges</a>
+          <a class="nav-link" href="{{ url_for('tts_page') }}">Text to Speech</a>
+          <a class="nav-link" href="{{ url_for('chat_page') }}">Grammar Feedback</a>
+          <a class="nav-link" href="{{ url_for('synonym_page') }}">Synonym Finder</a>
+          <a class="nav-link" href="{{ url_for('chapters_page') }}">Chapters</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="hero">
+    <h1>📚 Explore Chapters </h1>
+    <p>Discover a variety of topics to enhance your English skills</p>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <h2>Categories</h2>
+      {% for category, lessons in chapters.items() %}
+        <div class="category-item" onclick="selectCategory('{{ loop.index0 }}')">{{ category }}</div>
+      {% endfor %}
+    </nav>
+
+    <!-- Lesson Cards -->
+    <main class="lessons-container" id="lessons-container">
+      {% for category, lessons in chapters.items() %}
+        <div class="lessons-group" data-index="{{ loop.index0 }}" style="display: none;">
+          {% for lesson in lessons %}
+            <div class="lesson-card" {% if not lesson.lessons %}onclick="location.href='{{ url_for('lesson_page', section=category, chapter=lesson.title, lesson='main') }}'"{% endif %}>
+              <div class="lesson-title">{{ lesson.title }}</div>
+              {% if lesson.lessons %}
+                <ul class="sublessons-list">
+                  {% for sub in lesson.lessons %}
+                    <li>
+                      <a href="{{ url_for('lesson_page', section=category, chapter=lesson.title, lesson=sub) }}" style="text-decoration: none; color: inherit;">
+                        {{ sub }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <div style="color: #7f8c8d; font-size: 0.95rem;">Click to open lesson</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 English Tutor. All rights reserved. |
+    <a href="/privacy">Privacy Policy</a>
+  </footer>
+
+  <script>
+    const categories = document.querySelectorAll('.category-item');
+    const lessonsGroups = document.querySelectorAll('.lessons-group');
+
+    function selectCategory(index) {
+      categories.forEach(cat => cat.classList.remove('active'));
+      lessonsGroups.forEach(group => group.style.display = 'none');
+      categories[index].classList.add('active');
+      lessonsGroups[index].style.display = 'grid';
+      lessonsGroups[index].style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
+      lessonsGroups[index].style.gap = '40px 30px';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (categories.length > 0) {
+        selectCategory(0);
+      }
+    });
+
+    // Navbar hide on scroll down, show on scroll up
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScroll > lastScrollTop && currentScroll > 100) {
+        // scrolling down
+        navbar.classList.add('hidden');
+      } else {
+        // scrolling up
+        navbar.classList.remove('hidden');
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    });
+  </script>
+
+</body>
+</html>
